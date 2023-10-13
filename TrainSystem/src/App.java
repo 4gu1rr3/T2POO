@@ -32,12 +32,12 @@ public class App {
                 }
                 System.out.println("Qual o identificador da primeira locomotiva? ");
                 id = scanner.nextInt();
-                while(gc.verificaIdCarro(id) == false){
+                while(gc.verificaIdCarro(id) == false || (gc.getCarro(id)) instanceof Vagao){
                     System.out.println("Essa locomotiva não está disponível. Digite novamente: ");
                     id = scanner.nextInt();
                 }
-                Locomotiva locoadd = gc.getCarro(id);
-                patio.criaTrem(tremId,locoadd, gc);
+                Locomotiva locoadd = (Locomotiva) gc.getCarro(id);
+                patio.criaTrem(tremId,locoadd,gc);
                 System.out.println("Trem criado com sucesso! =)");
             }
             if(escolhaMenu == 2){
@@ -67,11 +67,11 @@ public class App {
                         id = scanner.nextInt();
                         while(gc.verificaIdCarro(id) == false){
                             System.out.println("Essa locomotiva não está disponível. Digite novamente: ");
-                            locoId = scanner.nextInt();
+                            id = scanner.nextInt();
                         }
-                        Locomotiva locoadd = gc.getCarro(id);
+                        Locomotiva locoadd = (Locomotiva) gc.getCarro(id);
                         Trem tremadd = Patio.getTrem(tremId);
-                        boolean engatado = tremadd.engataLocomotiva(locoadd);
+                        boolean engatado = tremadd.engataLocomotiva(locoadd,gc);
                         if(engatado == true) {
                             System.out.println("Locomotiva adicionada com sucesso! =)");
                         }
@@ -92,9 +92,9 @@ public class App {
                             System.out.println("Esse vagão não está disponível. Digite novamente: ");
                             id = scanner.nextInt();
                         }
-                        Vagao vagaoAdd = gc.getCarro(id);
+                        Vagao vagaoAdd = (Vagao) gc.getCarro(id);
                         Trem tremadd = Patio.getTrem(tremId);
-                        boolean engatado = tremadd.engataVagao(vagaoAdd);
+                        boolean engatado = tremadd.engataVagao(vagaoAdd, gc);
                         if(engatado == true) {
                             System.out.println("Vagão adicionado com sucesso! =)");
                         }
@@ -111,14 +111,14 @@ public class App {
                         }
                         Trem tremadd = Patio.getTrem(tremId);
                         if(tremadd.getQuantVagoes()>0){
-                            tremadd.desengataVagao(tremadd.getCarroByPos(tremadd.getQuantVagoes() -1));
+                            tremadd.desengataVagao(gc);
                         }
                         else{
                             if(tremadd.getQuantLocomotiva()<2){
                                 System.out.println("Não é possível retirar o último elemento do trem. =(");
                             }
                             else{
-                                tremadd.desengataLocomotiva(tremadd.getCarroByPos(tremadd.getQuantLocomotiva()-1));
+                                tremadd.desengataLocomotiva(gc);
                             }
                         }
                         System.out.println("Elemento removido com sucesso! =)");
@@ -153,7 +153,7 @@ public class App {
                     System.out.println("Não existe um trem com esse identificador. Digite novamente: ");
                     tremId = scanner.nextInt();
                 }
-                patio.desfazTrem(tremId);
+                patio.desfazTrem(tremId,gc);
                 System.out.println("Trem removido com sucesso! =)");
             }
         }while(escolhaMenu != 5);

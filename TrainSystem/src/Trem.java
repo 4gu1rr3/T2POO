@@ -92,7 +92,8 @@ public class Trem {
         }
     }
 
-    public void desengataLocomotiva(GaragemCarros gc) {
+    public boolean desengataLocomotiva(GaragemCarros gc) {
+        boolean resposta = false;
         if(vagaoEngatado == false){
             Locomotiva locomotiva = (Locomotiva) carros.get(carros.size()-1);
             locomotiva.setIdTrem(0);
@@ -105,10 +106,13 @@ public class Trem {
                 }
             carros.remove(locomotiva);
             gc.addCarro(locomotiva);
+            resposta = true;
         }
+        return resposta;
     }
 
-    public void desengataVagao(GaragemCarros gc) {
+    public boolean desengataVagao(GaragemCarros gc) {
+        boolean resposta = false;
         if(vagaoEngatado){
             if(getQuantVagoes() == 1){
                 vagaoEngatado = false;
@@ -119,7 +123,9 @@ public class Trem {
             this.capacidadeTotalVagoes += 1;
             carros.remove(vagao);
             gc.addCarro(vagao);
+            resposta = true;
         }
+        return resposta;
     }
 
     public void desengataTudo(GaragemCarros gc){
