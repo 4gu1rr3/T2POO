@@ -19,10 +19,6 @@ public abstract class Carro {
         this.idTrem = idTrem;
     }
 
-    public void desvinculaIdTrem(){
-        this.idTrem = 0;
-    }
-
     public String toString(){
         return "Carro [" + id + ", Tipo: ";
     }
