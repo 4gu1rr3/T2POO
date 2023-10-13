@@ -1,6 +1,7 @@
 import java.util.*;
 public class Patio {
     private static ArrayList<Trem> trens = new ArrayList<Trem>();
+    private ArrayList<Carro> carros = new ArrayList<Carro>();
 
     /**
      * Verifica se o identificador do trem informado pelo usuário existe.
@@ -16,17 +17,17 @@ public class Patio {
         return false;
     }
 
-    public Trem criaTrem(int tremId, Locomotiva locomotiva){
-        Trem t = new Trem(tremId, locomotiva);
+    public Trem criaTrem(int tremId, Locomotiva locomotiva, GaragemCarros gc){
+        Trem t = new Trem(tremId, locomotiva, gc);
         trens.add(t);
         return t;
     }
 
-    public void desfazTrem(int id){
+    public void desfazTrem(int id, GaragemCarros gc){
         int count = 0;
         for(Trem t : trens){
             if (t.getId() == id){
-                t.desengataTudo();
+                t.desengataTudo(gc);
                 trens.remove(count);
                 break;
             }
