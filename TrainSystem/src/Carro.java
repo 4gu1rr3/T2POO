@@ -2,7 +2,7 @@ public abstract class Carro {
     private int id;
     private int idTrem;
 
-    public Carro(int id, int idTrem){
+    public Carro(int id){
         this.id = id;
         this.idTrem = 0;
     }

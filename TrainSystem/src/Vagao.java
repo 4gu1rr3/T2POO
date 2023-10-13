@@ -14,8 +14,8 @@ public class Vagao extends Carro{
      * @param id
      * @param capacidade
      */
-    public Vagao(int id, int idTrem, double capacidade) {
-        super(id, idTrem);
+    public Vagao(int id, double capacidade) {
+        super(id);
         this.capacidade = capacidade;
     }
 

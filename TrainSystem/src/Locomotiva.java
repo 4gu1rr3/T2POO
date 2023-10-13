@@ -16,8 +16,8 @@ public class Locomotiva extends Carro{
      * @param maxPeso
      * @param maxVagoes
      */
-    public Locomotiva(int id, int idTrem, double maxPeso, int maxVagoes) {
-        super(id, idTrem);
+    public Locomotiva(int id, double maxPeso, int maxVagoes) {
+        super(id);
         this.maxPeso = maxPeso;
         this.maxVagoes = maxVagoes;
     }
