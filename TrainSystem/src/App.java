@@ -125,7 +125,7 @@ public class App {
                     }
                     if (escolhaMenu == 4) {
                         System.out.println("Locomotivas disponíveis:");
-                        System.out.println(gc.toString());
+                        System.out.println(gc.toString(1));
                         System.out.println("6. Voltar");
                         scanner.next();
                         scanner.nextLine();
@@ -133,7 +133,7 @@ public class App {
                     }
                     if (escolhaMenu == 5) {
                         System.out.println("Vagoes disponíveis:");
-                        System.out.println(gc.toString());
+                        System.out.println(gc.toString(2));
                         System.out.println("6. Voltar");
                         scanner.next();
                         scanner.nextLine();
