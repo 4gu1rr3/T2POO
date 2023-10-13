@@ -1,8 +1,7 @@
 import java.util.*;
 public class Trem {
     private int id;
-    private ArrayList<Locomotiva> locomotivas;
-    private ArrayList<Vagao> vagoes;
+    private ArrayList<Carro> carros;
     private boolean vagaoEngatado;
     private double capacidadeTotalPeso = 0;
     private int capacidadeTotalVagoes = 0;
@@ -12,11 +11,10 @@ public class Trem {
      * @param id
      * @param locomotiva
      */
-    public Trem(int id, Locomotiva locomotiva){
+    public Trem(int id, Locomotiva locomotiva, GaragemCarros gc){
         this.id = id;
-        this.locomotivas = new ArrayList<Locomotiva>();
-        this.vagoes = new ArrayList<Vagao>();
-        engataLocomotiva(locomotiva);
+        this.carros = new ArrayList<Carro>();
+        engataLocomotiva(locomotiva, gc);
     }
 
     public int getId() {
@@ -24,53 +22,49 @@ public class Trem {
     }
 
     public int getQuantLocomotiva() {
-        return locomotivas.size();
+        int cont = 0;
+        for(Carro carro : carros){
+            if(carro instanceof Locomotiva){
+                cont++;
+            }
+        }
+        return cont;
     }
 
     public int getQuantVagoes() {
-        return vagoes.size();
+        int cont = 0;
+        for(Carro carro : carros){
+            if(carro instanceof Vagao){
+                cont++;
+            }
+        }
+        return cont;
     }
 
-    public Locomotiva getLocomotiva(int idLocomotiva) {
+    public Carro getCarro(int id) {
         int index = 0;
         int posicao = 0;
-        for(Locomotiva l : locomotivas){
-            if(l.getId() == idLocomotiva){
+        for(Carro c : carros){
+            if(c.getId() == id){
                 posicao = index;
             }
             index++;
         }
-        return locomotivas.get(posicao);
+        return carros.get(posicao);
     }
 
-    public Locomotiva getLocomotivaByPos(int posicao) {
-        return locomotivas.get(posicao);
+    public Carro getCarroByPos(int posicao) {
+        return carros.get(posicao);
     }
 
-    public Vagao getVagao(int idVagao) {
-        int index = 0;
-        int posicaoB = 0;
-        for(Vagao v : vagoes){
-            if(v.getId() == idVagao){
-                posicaoB = index;
-            }
-            index++;
-        }
-        return vagoes.get(posicaoB);
-    }
-
-    public Vagao getVagaoByPos(int posicao) {
-        return vagoes.get(posicao);
-    }
-
-    public boolean engataVagao(Vagao vagao) {
+    public boolean engataVagao(Vagao vagao, GaragemCarros gc) {
         if (this.capacidadeTotalPeso > vagao.getCapacidade() && this.capacidadeTotalVagoes > 0){
-            vagoes.add(vagao);
+            carros.add(vagao);
             vagaoEngatado = true;
             vagao.setIdTrem(this.id);
             this.capacidadeTotalPeso -= vagao.getCapacidade();
             this.capacidadeTotalVagoes -= 1;
-            GaragemVagoes.removeVagao(vagao);
+            gc.removeCarro(vagao);
             return true;
         }
         else {
@@ -78,17 +72,17 @@ public class Trem {
         }
     }
 
-    public boolean engataLocomotiva(Locomotiva locomotiva) {
+    public boolean engataLocomotiva(Locomotiva locomotiva, GaragemCarros gc) {
         if (vagaoEngatado == false) {
-            locomotivas.add(locomotiva);
+            carros.add(locomotiva);
             locomotiva.setIdTrem(this.id);
             this.capacidadeTotalPeso += locomotiva.getMaxPeso();
             this.capacidadeTotalVagoes += locomotiva.getMaxVagoes();
-            if(locomotivas.size()>1){
+            if(carros.size()>1){
                 this.capacidadeTotalPeso = capacidadeTotalPeso * 0.9;
                 this.capacidadeTotalVagoes = (int) (capacidadeTotalVagoes * 0.9);
             }
-            GaragemLocomotivas.removeLocomotiva(locomotiva);
+            gc.removeCarro(locomotiva);
             return true;
         }
         else {
@@ -96,10 +90,10 @@ public class Trem {
         }
     }
 
-    public boolean desengataLocomotiva(Locomotiva locomotiva) {
-        locomotivas.remove(locomotiva);
+    public boolean desengataLocomotiva(Locomotiva locomotiva, GaragemCarros gc) {
+        carros.remove(locomotiva);
         locomotiva.setIdTrem(0);
-        if(locomotivas.size()>1){
+        if(carros.size()>1){
             this.capacidadeTotalPeso -= locomotiva.getMaxPeso() * 0.9;
             this.capacidadeTotalVagoes -= locomotiva.getMaxVagoes() * 0.9;
         }
@@ -107,40 +101,41 @@ public class Trem {
             this.capacidadeTotalPeso -= locomotiva.getMaxPeso();
             this.capacidadeTotalVagoes -= locomotiva.getMaxVagoes();
         }
-        GaragemLocomotivas.addLocomotiva(locomotiva);
+        gc.addCarro(locomotiva);
         return true;
     }
 
-    public boolean desengataVagao(Vagao vagao) {
-        if(vagoes.size() == 1){
+    public boolean desengataVagao(Vagao vagao, GaragemCarros gc) {
+        if(getQuantVagoes() == 1){
             vagaoEngatado = false;
         }
-        vagoes.remove(vagao);
+        carros.remove(vagao);
         vagao.setIdTrem(0);
         this.capacidadeTotalPeso += vagao.getCapacidade();
         this.capacidadeTotalVagoes += 1;
-        GaragemVagoes.addVagao(vagao);
+        gc.addCarro(vagao);
         return true;
     }
 
-    public void desengataTudo(){
-        int sizeV = this.vagoes.size();
-        for(int i = 0; i < sizeV; i++){
-            desengataVagao(getVagao(vagoes.size()-1));
+    public void desengataTudo(GaragemCarros gc){
+        for(Carro carro : carros){
+            gc.addCarro(carro);
+            carro.desvinculaIdTrem();
         }
-        int sizeL = this.locomotivas.size();
-        for(int i = 0; i < sizeL; i++){
-            desengataLocomotiva(getLocomotiva(locomotivas.size()-1));
-        }
+        this.capacidadeTotalPeso = 0;
+        this.capacidadeTotalVagoes = 0;
+        this.vagaoEngatado = false;
+        carros.clear();
     }
 
     public String toString() {
         String retorno = "Trem "+ id + ": ";
-        for(Locomotiva l : locomotivas){
-            retorno += "L" + l.getId() + " ";
-        }
-        for(Vagao v : vagoes){
-            retorno += "V" + v.getId() + " ";
+        for(Carro carro : carros){
+            if(carro instanceof Locomotiva){
+                retorno += "Locomotiva-" + carro.getId() + " ";
+            }else{
+                retorno += "Vagão-" + carro.getId() + " ";
+            }
         }
         return retorno;
     }

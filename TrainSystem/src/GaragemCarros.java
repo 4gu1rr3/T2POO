@@ -1,14 +1,14 @@
 import java.util.*;
 public class GaragemCarros {
-    
-    private ArrayList<Carro> garagemCarro = new ArrayList<Carro>();
+    private ArrayList<Carro> garagemCarro;
     public GaragemCarros(){
-        Carro Carro1 = new Carro(1, 2000, 10);
-        garagemCarro.add(Carro1);
-        Carro Carro2 = new Carro(2, 2500, 8);
-        garagemCarro.add(Carro2);
-        Carro Carro3 = new Carro(3, 3000, 12);
-        garagemCarro.add(Carro3);
+        this.garagemCarro = new ArrayList<Carro>();
+        garagemCarro.add(new Locomotiva(1, 2000, 10));
+        garagemCarro.add(new Locomotiva(2, 2500, 8));
+        garagemCarro.add(new Locomotiva(3, 3000, 12));
+        garagemCarro.add(new Vagao(4, 200));
+        garagemCarro.add(new Vagao(5, 250));
+        garagemCarro.add(new Vagao(6, 300));
     }
 
     public void removeCarro(Carro Carro) {
