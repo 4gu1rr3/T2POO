@@ -65,7 +65,7 @@ public class App {
                         }
                         System.out.println("Qual o identificador da locomotiva? ");
                         id = scanner.nextInt();
-                        while(gc.verificaIdCarro(id) == false){
+                        while(gc.verificaIdCarro(id) == false || (gc.getCarro(id)) instanceof Vagao){
                             System.out.println("Essa locomotiva não está disponível. Digite novamente: ");
                             id = scanner.nextInt();
                         }
@@ -88,7 +88,7 @@ public class App {
                         }
                         System.out.println("Qual o identificador do vagão? ");
                         id = scanner.nextInt();
-                        while(gc.verificaIdCarro(id) == false){
+                        while(gc.verificaIdCarro(id) == false || (gc.getCarro(id)) instanceof Locomotiva){
                             System.out.println("Esse vagão não está disponível. Digite novamente: ");
                             id = scanner.nextInt();
                         }

@@ -129,8 +129,9 @@ public class Trem {
     }
 
     public void desengataTudo(GaragemCarros gc){
-        for(Carro carro : carros){
-            if(carro instanceof Locomotiva){
+        int sizeC = carros.size();
+        for(int i = 0; i < sizeC; i++){
+            if(getCarro(carros.size()-1) instanceof Locomotiva){
                 desengataLocomotiva(gc);
             }else{
                 desengataVagao(gc);
@@ -142,9 +143,9 @@ public class Trem {
         String retorno = "Trem "+ id + ": ";
         for(Carro carro : carros){
             if(carro instanceof Locomotiva){
-                retorno += "Locomotiva-" + carro.getId() + " ";
+                retorno += "L" + carro.getId() + " ";
             }else{
-                retorno += "Vagão-" + carro.getId() + " ";
+                retorno += "V" + carro.getId() + " ";
             }
         }
         return retorno;
