@@ -1,5 +1,6 @@
 import java.util.*;
 public class GaragemLocomotivas {
+    
     private static ArrayList<Locomotiva> garagemLocomotiva = new ArrayList<Locomotiva>();
     public GaragemLocomotivas(){
         Locomotiva locomotiva1 = new Locomotiva(1, 2000, 10);

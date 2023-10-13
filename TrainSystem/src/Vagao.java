@@ -5,10 +5,8 @@
  * @author 4gu1rr3 (Yasmin Aguirre)
  * @version 1.0
  */
-public class Vagao {
-    private int id;
+public class Vagao extends Carro{
     private double capacidade;
-    private int idTrem;
 
     /**
      * Construtor da classe Vagao.
@@ -16,10 +14,9 @@ public class Vagao {
      * @param id
      * @param capacidade
      */
-    public Vagao(int id, double capacidade) {
-        this.id = id;
+    public Vagao(int id, int idTrem, double capacidade) {
+        super(id, idTrem);
         this.capacidade = capacidade;
-        this.idTrem = 0;
     }
 
     /**
@@ -28,7 +25,7 @@ public class Vagao {
      * @return O identificador do vagão.
      */
     public int getId() {
-        return id;
+        return super.getId();
     }
 
     /**
@@ -46,7 +43,7 @@ public class Vagao {
      * @return O identificador do trem ao qual o vagão está engatado, ou 0 se não estiver engatado em nenhum trem.
      */
     public int getIdTrem() {
-        return idTrem;
+        return super.getIdTrem();
     }
 
     /**
@@ -55,7 +52,7 @@ public class Vagao {
      * @param idTrem
      */
     public void setIdTrem(int idTrem) {
-        this.idTrem = idTrem;
+        super.setIdTrem(idTrem);
     }
 
     /**
@@ -64,6 +61,6 @@ public class Vagao {
      * @return Uma string no formato "Vagão[v{id}, Capacidade = {capacidade}]".
      */
     public String toString() {
-        return "Vagão [V" + id + ", Capacidade = " + capacidade + "]";
+        return super.toString() + "Vagão , Capacidade = " + capacidade + "]";
     }
 }

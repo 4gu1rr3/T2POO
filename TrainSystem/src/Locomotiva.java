@@ -6,11 +6,9 @@
  * @author 4gu1rr3 (Yasmin Aguirre)
  * @version 1.0
  */
-public class Locomotiva {
-    private int id;
+public class Locomotiva extends Carro{
     private double maxPeso;
     private int maxVagoes;
-    private int idTrem;
 
     /**
      * Construtor da classe Locomotiva.
@@ -18,11 +16,10 @@ public class Locomotiva {
      * @param maxPeso
      * @param maxVagoes
      */
-    public Locomotiva(int id, double maxPeso, int maxVagoes) {
-        this.id = id;
+    public Locomotiva(int id, int idTrem, double maxPeso, int maxVagoes) {
+        super(id, idTrem);
         this.maxPeso = maxPeso;
         this.maxVagoes = maxVagoes;
-        this.idTrem = 0;
     }
 
     /**
@@ -31,7 +28,7 @@ public class Locomotiva {
      * @return O identificador da locomotiva.
      */
     public int getId() {
-        return id;
+        return super.getId();
     }
 
     /**
@@ -58,7 +55,7 @@ public class Locomotiva {
      * @return O identificador do trem ao qual a locomotiva está engatada, ou 0 se não estiver engatada em nenhum trem.
      */
     public int getIdTrem() {
-        return idTrem;
+        return super.getIdTrem();
     }
 
     /**
@@ -67,7 +64,7 @@ public class Locomotiva {
      * @param IdTrem
      */
     public void setIdTrem(int IdTrem) {
-        this.idTrem = IdTrem;
+        super.setIdTrem(IdTrem);
     }
 
     /**
@@ -76,6 +73,6 @@ public class Locomotiva {
      * @return Uma string no formato "Locomotiva[L{id}, Capacidade = {maxPeso}, Máximo de Vagões{maxVagoes}]".
      */
     public String toString() {
-        return "Locomotiva [L" + id + ", Capacidade = " + maxPeso + ", Máximo de Vagões = " + maxVagoes + "]";
+        return super.toString() + "Locomotiva, Capacidade = " + maxPeso + ", Máximo de Vagões = " + maxVagoes + "]";
     }
 }
