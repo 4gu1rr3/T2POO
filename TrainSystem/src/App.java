@@ -71,7 +71,7 @@ public class App {
                         }
                         Locomotiva locoadd = (Locomotiva) gc.getCarro(id);
                         Trem tremadd = Patio.getTrem(tremId);
-                        boolean engatado = tremadd.engataLocomotiva(locoadd,gc);
+                        boolean engatado = tremadd.engataCarro(locoadd,gc);
                         if(engatado == true) {
                             System.out.println("Locomotiva adicionada com sucesso! =)");
                         }
@@ -94,7 +94,7 @@ public class App {
                         }
                         Vagao vagaoAdd = (Vagao) gc.getCarro(id);
                         Trem tremadd = Patio.getTrem(tremId);
-                        boolean engatado = tremadd.engataVagao(vagaoAdd, gc);
+                        boolean engatado = tremadd.engataCarro(vagaoAdd, gc);
                         if(engatado == true) {
                             System.out.println("Vagão adicionado com sucesso! =)");
                         }
@@ -110,16 +110,11 @@ public class App {
                             tremId = scanner.nextInt();
                         }
                         Trem tremadd = Patio.getTrem(tremId);
-                        if(tremadd.getQuantVagoes()>0){
-                            tremadd.desengataVagao(gc);
+                        if(tremadd.getQuantLocomotiva()<2){
+                            System.out.println("Não é possível retirar o último elemento do trem. =(");
                         }
                         else{
-                            if(tremadd.getQuantLocomotiva()<2){
-                                System.out.println("Não é possível retirar o último elemento do trem. =(");
-                            }
-                            else{
-                                tremadd.desengataLocomotiva(gc);
-                            }
+                            tremadd.desengataCarro(gc);
                         }
                         System.out.println("Elemento removido com sucesso! =)");
                     }
