@@ -69,6 +69,18 @@ public class Locomotiva extends Carro{
         super.setIdTrem(IdTrem);
     }
 
+    public void setId(String str) {
+        this.id = Integer.parseInt(str);
+    }
+
+    public void setMaxPeso(String str) {
+        this.maxPeso = Double.parseDouble(str);
+    }
+
+    public void setMaxVagoes(String str) {
+        this.maxVagoes = Integer.parseInt(str);
+    }
+
     /**
      * Retorna uma representação em formato de string da locomotiva.
      *

@@ -1,8 +1,8 @@
 package rocket;
 
 public abstract class Carro {
-    private int id;
-    private int idTrem;
+    public int id;
+    public int idTrem;
 
     public Carro(int id){
         this.id = id;
