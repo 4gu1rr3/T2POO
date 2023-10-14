@@ -1,8 +1,33 @@
 package rocket;
 
+import java.io.File;
+import java.io.FileReader;
 import java.util.*;
+
+import com.opencsv.CSVReader;
 public class App {
-    public static void main(String[] args) throws Exception {
+        private static final String csvPath = System.getProperty("user.dir") + "/locomotiva.csv";
+        public static void main(String[] args){
+        try{
+            CSVReader csvReader = new CSVReader(new FileReader(new File(csvPath)));
+            List<List<String>> linhas = new ArrayList<List<String>>();
+
+            String[] colunas = null;
+
+            while((colunas = csvReader.readNext()) != null){
+                linhas.add(Arrays.asList(colunas));
+            }
+
+            linhas.forEach(cols -> {
+                System.out.println(".............");
+                cols.forEach(col -> {
+                    System.out.println(col); 
+                });
+               
+            });
+        }catch(Exception e){
+            e.printStackTrace();
+        }
         Patio patio = new Patio();
         Scanner scanner = new Scanner(System.in);
         GaragemCarros gc = new GaragemCarros();
