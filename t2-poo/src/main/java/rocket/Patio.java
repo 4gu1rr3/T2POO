@@ -2,7 +2,7 @@ package rocket;
 
 import java.util.*;
 public class Patio {
-    private static ArrayList<Trem> trens = new ArrayList<Trem>();
+    static ArrayList<Trem> trens = new ArrayList<Trem>();
 
     /**
      * Verifica se o identificador do trem informado pelo usuário existe.
