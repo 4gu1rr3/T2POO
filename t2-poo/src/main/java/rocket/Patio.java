@@ -18,7 +18,11 @@ public class Patio {
         return false;
     }
 
-    public Trem criaTrem(int tremId, Locomotiva locomotiva, GaragemCarros gc){
+    public static boolean hasTrem(Trem trem) {
+        return trens.contains(trem);
+    }
+
+    public static Trem criaTrem(int tremId, Locomotiva locomotiva, GaragemCarros gc){
         Trem t = new Trem(tremId, locomotiva, gc);
         trens.add(t);
         return t;

@@ -28,6 +28,10 @@ public class GaragemCarros {
         garagemCarro.add(Carro);
     }
 
+    public boolean hasCarro(Carro carro) {
+        return garagemCarro.contains(carro);
+    }
+
     /**
      * Verifica se o identificador da Carro informada pelo usuário existe.
      * @param id

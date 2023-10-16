@@ -31,22 +31,41 @@ public class GaragemCarrosTest {
     }
 
     @Test
-    public void testGetCarroInexistente() {
-        Carro carro = garagemCarros.getCarro(7);
-        assertNull(carro);
+    public void testRemoveCarro() {
+        GaragemCarros gc = new GaragemCarros();
+        Carro carro = gc.getCarro(1);
+        gc.removeCarro(carro);
+        boolean existsInGaragem = gc.hasCarro(carro);
+        assertFalse(existsInGaragem);
     }
 
     @Test
     public void testToStringLocomotivas() {
-        String resultado = garagemCarros.toString(1);
-        assertTrue(resultado.contains("Locomotiva"));
-        assertFalse(resultado.contains("Vagao"));
+        // Create a sample GaragemCarros object
+        GaragemCarros garagemCarros = new GaragemCarros();
+        
+        // Test the toString method for Locomotivas
+        String result = garagemCarros.toString(1);
+        
+        // Perform the assertion for Locomotivas
+        String expectedLocomotivas = "Carro [1, Tipo: Locomotiva, Capacidade = 2000.0, Máximo de Vagões = 10]\n" +
+                                     "Carro [2, Tipo: Locomotiva, Capacidade = 2500.0, Máximo de Vagões = 8]\n" +
+                                     "Carro [3, Tipo: Locomotiva, Capacidade = 3000.0, Máximo de Vagões = 12]\n";
+        assertEquals(expectedLocomotivas, result);
     }
-
+    
     @Test
     public void testToStringVagoes() {
-        String resultado = garagemCarros.toString(2);
-        assertTrue(resultado.contains("Vagao"));
-        assertFalse(resultado.contains("Locomotiva"));
+        // Create a sample GaragemCarros object
+        GaragemCarros garagemCarros = new GaragemCarros();
+        
+        // Test the toString method for Vagoes
+        String result = garagemCarros.toString(2);
+        
+        // Perform the assertion for Vagoes
+        String expectedVagoes = "Carro [4, Tipo: Vagão , Capacidade = 200.0]\n" +
+                                "Carro [5, Tipo: Vagão , Capacidade = 250.0]\n" +
+                                "Carro [6, Tipo: Vagão , Capacidade = 300.0]\n";
+        assertEquals(expectedVagoes, result);
     }
 }
