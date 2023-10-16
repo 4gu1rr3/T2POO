@@ -1,7 +1,7 @@
 package rocket;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 public class GaragemCarrosTest {
 
@@ -41,13 +41,8 @@ public class GaragemCarrosTest {
 
     @Test
     public void testToStringLocomotivas() {
-        // Create a sample GaragemCarros object
-        GaragemCarros garagemCarros = new GaragemCarros();
-        
-        // Test the toString method for Locomotivas
-        String result = garagemCarros.toString(1);
-        
-        // Perform the assertion for Locomotivas
+        GaragemCarros gc = new GaragemCarros();
+        String result = gc.toString(1);
         String expectedLocomotivas = "Carro [1, Tipo: Locomotiva, Capacidade = 2000.0, Máximo de Vagões = 10]\n" +
                                      "Carro [2, Tipo: Locomotiva, Capacidade = 2500.0, Máximo de Vagões = 8]\n" +
                                      "Carro [3, Tipo: Locomotiva, Capacidade = 3000.0, Máximo de Vagões = 12]\n";
@@ -56,13 +51,8 @@ public class GaragemCarrosTest {
     
     @Test
     public void testToStringVagoes() {
-        // Create a sample GaragemCarros object
-        GaragemCarros garagemCarros = new GaragemCarros();
-        
-        // Test the toString method for Vagoes
-        String result = garagemCarros.toString(2);
-        
-        // Perform the assertion for Vagoes
+        GaragemCarros gc = new GaragemCarros();
+        String result = gc.toString(2);
         String expectedVagoes = "Carro [4, Tipo: Vagão , Capacidade = 200.0]\n" +
                                 "Carro [5, Tipo: Vagão , Capacidade = 250.0]\n" +
                                 "Carro [6, Tipo: Vagão , Capacidade = 300.0]\n";

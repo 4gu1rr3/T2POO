@@ -4,25 +4,7 @@ import java.util.*;
 public class Patio {
     static ArrayList<Trem> trens = new ArrayList<Trem>();
 
-    /**
-     * Verifica se o identificador do trem informado pelo usuário existe.
-     * @param id
-     * @return Retorna true se existir e false se não existir.
-     */
-    public static boolean verificaIdTrem(int id){
-        for(Trem t: trens){
-            if (t.getId() == id){
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public static boolean hasTrem(Trem trem) {
-        return trens.contains(trem);
-    }
-
-    public static Trem criaTrem(int tremId, Locomotiva locomotiva, GaragemCarros gc){
+    public static Trem criaTrem(int tremId, Locomotiva locomotiva, GaragemCarros gc) {
         Trem t = new Trem(tremId, locomotiva, gc);
         trens.add(t);
         return t;
@@ -40,16 +22,26 @@ public class Patio {
         }
     }
 
+    public static boolean hasTrem(Trem trem){
+        return trens.contains(trem);
+    }
+
     public static Trem getTrem(int idTrem) {
-        int index = 0;
-        int posicao = 0;
-        for(Trem t : trens){
-            if(t.getId() == idTrem){
-                posicao = index;
+        for (Trem t : trens) {
+            if (t.getId() == idTrem) {
+                return t;
             }
-            index++;
         }
-        return trens.get(posicao);
+        return null;
+    }
+
+    public static boolean verificaIdTrem(int id){
+        for(Trem t: trens){
+            if (t.getId() == id){
+                return true;
+            }
+        }
+        return false;
     }
 
     public String toString() {

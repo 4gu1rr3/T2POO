@@ -41,4 +41,3 @@ public class VagaoTest {
         assertTrue(str.contains("Capacidade = 200.0]"));
     }
 }
-

@@ -1,7 +1,6 @@
 package rocket;
 import java.util.*;
 
-
 public class App {
 
     public static void main(String[] args) {
@@ -50,7 +49,7 @@ public class App {
                     id = scanner.nextInt();
                 }
                 Locomotiva locoadd = (Locomotiva) gc.getCarro(id);
-                patio.criaTrem(tremId,locoadd,gc);
+                Patio.criaTrem(tremId,locoadd,gc);
                 System.out.println("Trem criado com sucesso! =)");
             }
             if(escolhaMenu == 2){

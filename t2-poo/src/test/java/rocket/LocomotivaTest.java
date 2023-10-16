@@ -63,4 +63,3 @@ public class LocomotivaTest {
         assertEquals(expected, locomotiva.toString());
     }
 }
-

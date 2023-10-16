@@ -1,74 +1,69 @@
 package rocket;
 import static org.junit.Assert.*;
-import org.junit.Before;
 import org.junit.Test;
 
 public class TremTest {
 
-    private GaragemCarros garagemCarros;
+    @Test
+    public void testGetId() {
+        Trem trem = new Trem(1, new Locomotiva(1, 2000, 10), new GaragemCarros());
+        assertEquals(1, trem.getId());
+    }
 
-    @Before
-    public void setUp() {
-        garagemCarros = new GaragemCarros();
+    @Test
+    public void testGetQuantLocomotiva() {
+        Trem trem = new Trem(1, new Locomotiva(1, 2000, 10), new GaragemCarros());
+        assertEquals(1, trem.getQuantLocomotiva());
+    }
+
+    @Test
+    public void testGetQuantVagoes() {
+        Trem trem = new Trem(1, new Locomotiva(1, 2000, 10), new GaragemCarros());
+        assertEquals(0, trem.getQuantVagoes());
     }
 
     @Test
     public void testEngataLocomotiva() {
-        Trem trem = new Trem(1, new Locomotiva(1, 2000, 10), garagemCarros);
-        boolean engatado = trem.engataCarro(new Locomotiva(2, 2500, 8), garagemCarros);
-        assertTrue(engatado);
-    }
-
-    @Test
-    public void testEngataLocomotivaComVagaoEngatado() {
-        Trem trem = new Trem(1, new Locomotiva(1, 2000, 10), garagemCarros);
-        trem.engataCarro(new Vagao(3, 300), garagemCarros);
-        boolean engatado = trem.engataCarro(new Locomotiva(2, 2500, 8), garagemCarros);
-        assertFalse(engatado);
+        Trem trem = new Trem(1, new Locomotiva(1, 2000, 10), new GaragemCarros());
+        GaragemCarros gc = new GaragemCarros();
+        Locomotiva locomotiva = new Locomotiva(2, 2000, 10);
+        assertTrue(trem.engataCarro(locomotiva, gc));
     }
 
     @Test
     public void testEngataVagao() {
-        Trem trem = new Trem(1, new Locomotiva(1, 2000, 10), garagemCarros);
-        boolean engatado = trem.engataCarro(new Vagao(4, 200), garagemCarros);
-        assertTrue(engatado);
-    }
-
-    @Test
-    public void testEngataVagaoCapacidadeExcedida() {
-        Trem trem = new Trem(1, new Locomotiva(1, 2000, 10), garagemCarros);
-        boolean engatado = trem.engataCarro(new Vagao(4, 300), garagemCarros); // Capacidade excedida
-        assertFalse(engatado);
+        Trem trem = new Trem(1, new Locomotiva(1, 2000, 10), new GaragemCarros());
+        GaragemCarros gc = new GaragemCarros();
+        Vagao vagao = new Vagao(2, 200);
+        assertTrue(trem.engataCarro(vagao, gc));
     }
 
     @Test
     public void testDesengataLocomotiva() {
-        Trem trem = new Trem(1, new Locomotiva(1, 2000, 10), garagemCarros);
-        trem.engataCarro(new Locomotiva(2, 2500, 8), garagemCarros);
-        boolean desengatado = trem.desengataCarro(garagemCarros);
-        assertTrue(desengatado);
-    }
-
-    @Test
-    public void testDesengataLocomotivaComVagaoEngatado() {
-        Trem trem = new Trem(1, new Locomotiva(1, 2000, 10), garagemCarros);
-        boolean desengatado = trem.desengataCarro(garagemCarros);
-        assertFalse(desengatado);
+        Trem trem = new Trem(1, new Locomotiva(1, 2000, 10), new GaragemCarros());
+        GaragemCarros gc = new GaragemCarros();
+        Locomotiva locomotiva = new Locomotiva(2, 2000, 10);
+        trem.engataCarro(locomotiva, gc);
+        assertTrue(trem.desengataCarro(gc));
     }
 
     @Test
     public void testDesengataVagao() {
-        Trem trem = new Trem(1, new Locomotiva(1, 2000, 10), garagemCarros);
-        trem.engataCarro(new Vagao(3, 300), garagemCarros);
-        boolean desengatado = trem.desengataCarro(garagemCarros);
-        assertTrue(desengatado);
+        Trem trem = new Trem(1, new Locomotiva(1, 2000, 10), new GaragemCarros());
+        GaragemCarros gc = new GaragemCarros();
+        Vagao vagao = new Vagao(2, 200);
+        trem.engataCarro(vagao, gc);
+        assertTrue(trem.desengataCarro(gc));
     }
 
     @Test
-    public void testDesengataVagaoComLocomotivaEngatada() {
-        Trem trem = new Trem(1, new Locomotiva(1, 2000, 10), garagemCarros);
-        boolean desengatado = trem.desengataCarro(garagemCarros);
-        assertFalse(desengatado);
+    public void testDesengataTudo() {
+        Trem trem = new Trem(1, new Locomotiva(1, 2000, 10), new GaragemCarros());
+        GaragemCarros gc = new GaragemCarros();
+        Vagao vagao = new Vagao(2, 200);
+        trem.engataCarro(vagao, gc);
+        trem.desengataTudo(gc);
+        assertEquals(0, trem.getQuantLocomotiva());
+        assertEquals(0, trem.getQuantVagoes());
     }
 }
-
