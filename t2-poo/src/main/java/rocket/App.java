@@ -2,9 +2,8 @@ package rocket;
 import java.util.*;
 
 public class App {
-
-    public static void main(String[] args) {
-
+    
+    public static void iniciaCsv(Patio patio, GaragemCarros gc){
         Leitor leitorC = new Leitor("C");
         Leitor leitorL = new Leitor("L");
         Leitor leitorV = new Leitor("V");
@@ -12,12 +11,6 @@ public class App {
         String[][] matrizC = leitorC.getMatriz();
         String[][] matrizL = leitorL.getMatriz();
         String[][] matrizV = leitorV.getMatriz();
-
-        Patio patio = new Patio();
-        Scanner scanner = new Scanner(System.in);
-        GaragemCarros gc = new GaragemCarros();
-        int escolhaMenu = -1;
-        int tremId, id;
 
         for (String[] linha : matrizL) {
             if (linha == matrizL[0]) continue; // Pula a primeira linha do arquivo
@@ -48,7 +41,15 @@ public class App {
                 }
             }
         }
+    }
 
+    public static void main(String[] args) {
+        Patio patio = new Patio();
+        Scanner scanner = new Scanner(System.in);
+        GaragemCarros gc = new GaragemCarros();
+        int escolhaMenu = -1;
+        int tremId, id;
+        iniciaCsv(patio, gc);
         System.out.println("Bem-vindo ao sistema de trens =)");
 
         do{
@@ -157,8 +158,8 @@ public class App {
                         }
                         else{
                             tremadd.desengataCarro(gc);
+                            System.out.println("Elemento removido com sucesso! =)");
                         }
-                        System.out.println("Elemento removido com sucesso! =)");
                     }
                     if (escolhaMenu == 4) {
                         System.out.println("Locomotivas disponíveis:");

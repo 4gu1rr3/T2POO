@@ -14,6 +14,8 @@ public class GaragemCarrosTest {
 
     @Test
     public void testVerificaIdCarroExistente() {
+        Locomotiva locomotiva = new Locomotiva(1, 2000, 10);
+        garagemCarros.addCarro(locomotiva);
         boolean existe = garagemCarros.verificaIdCarro(1);
         assertTrue(existe);
     }
@@ -26,36 +28,37 @@ public class GaragemCarrosTest {
 
     @Test
     public void testGetCarroExistente() {
+        Locomotiva locomotiva = new Locomotiva(1, 2000, 10);
+        garagemCarros.addCarro(locomotiva);
         Carro carro = garagemCarros.getCarro(1);
         assertNotNull(carro);
     }
 
     @Test
     public void testRemoveCarro() {
-        GaragemCarros gc = new GaragemCarros();
-        Carro carro = gc.getCarro(1);
-        gc.removeCarro(carro);
-        boolean existsInGaragem = gc.hasCarro(carro);
+        Locomotiva locomotiva = new Locomotiva(1, 2000, 10);
+        garagemCarros.addCarro(locomotiva);
+        Carro carro = garagemCarros.getCarro(1);
+        garagemCarros.removeCarro(carro);
+        boolean existsInGaragem = garagemCarros.hasCarro(carro);
         assertFalse(existsInGaragem);
     }
 
     @Test
     public void testToStringLocomotivas() {
-        GaragemCarros gc = new GaragemCarros();
-        String result = gc.toString(1);
-        String expectedLocomotivas = "Carro [1, Tipo: Locomotiva, Capacidade = 2000.0, Máximo de Vagões = 10]\n" +
-                                     "Carro [2, Tipo: Locomotiva, Capacidade = 2500.0, Máximo de Vagões = 8]\n" +
-                                     "Carro [3, Tipo: Locomotiva, Capacidade = 3000.0, Máximo de Vagões = 12]\n";
+        Locomotiva locomotiva = new Locomotiva(1, 2000, 10);
+        garagemCarros.addCarro(locomotiva);
+        String result = garagemCarros.toString(1);
+        String expectedLocomotivas = "Carro [1, Tipo: Locomotiva, Capacidade = 2000.0, Máximo de Vagões = 10]\n" ;
         assertEquals(expectedLocomotivas, result);
     }
     
     @Test
     public void testToStringVagoes() {
-        GaragemCarros gc = new GaragemCarros();
-        String result = gc.toString(2);
-        String expectedVagoes = "Carro [4, Tipo: Vagão , Capacidade = 200.0]\n" +
-                                "Carro [5, Tipo: Vagão , Capacidade = 250.0]\n" +
-                                "Carro [6, Tipo: Vagão , Capacidade = 300.0]\n";
+        Vagao vagao = new Vagao(1, 2000);
+        garagemCarros.addCarro(vagao);
+        String result = garagemCarros.toString(2);
+        String expectedVagoes = "Carro [1, Tipo: Vagão, Capacidade = 2000.0]\n";
         assertEquals(expectedVagoes, result);
     }
 }

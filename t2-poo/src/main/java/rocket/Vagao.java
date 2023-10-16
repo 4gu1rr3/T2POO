@@ -63,6 +63,6 @@ public class Vagao extends Carro{
      * @return Uma string no formato "Vagão[v{id}, Capacidade = {capacidade}]".
      */
     public String toString() {
-        return super.toString() + "Vagão , Capacidade = " + capacidade + "]";
+        return super.toString() + "Vagão, Capacidade = " + capacidade + "]";
     }
 }
