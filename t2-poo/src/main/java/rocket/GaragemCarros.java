@@ -5,12 +5,6 @@ public class GaragemCarros {
     public ArrayList<Carro> garagemCarro;
     public GaragemCarros(){
         this.garagemCarro = new ArrayList<Carro>();
-        garagemCarro.add(new Locomotiva(1, 2000, 10));
-        garagemCarro.add(new Locomotiva(2, 2500, 8));
-        garagemCarro.add(new Locomotiva(3, 3000, 12));
-        garagemCarro.add(new Vagao(4, 200));
-        garagemCarro.add(new Vagao(5, 250));
-        garagemCarro.add(new Vagao(6, 300));
     }
 
     public void removeCarro(Carro Carro) {
