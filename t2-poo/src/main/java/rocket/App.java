@@ -2,44 +2,79 @@ package rocket;
 import java.util.*;
 
 public class App {
-    
+
     public static void iniciaCsv(Patio patio, GaragemCarros gc){
-        Leitor leitorC = new Leitor("C");
-        Leitor leitorL = new Leitor("L");
-        Leitor leitorV = new Leitor("V");
+        try {
+            Leitor leitorC = new Leitor("C");
+            Leitor leitorL = new Leitor("L");
+            Leitor leitorV = new Leitor("V");
 
-        String[][] matrizC = leitorC.getMatriz();
-        String[][] matrizL = leitorL.getMatriz();
-        String[][] matrizV = leitorV.getMatriz();
+            String[][] matrizC = leitorC.getMatriz();
+            String[][] matrizL = leitorL.getMatriz();
+            String[][] matrizV = leitorV.getMatriz();
 
-        for (String[] linha : matrizL) {
-            if (linha == matrizL[0]) continue; // Pula a primeira linha do arquivo
-            int idL = Integer.parseInt(linha[0]);
-            double maxPeso = Double.parseDouble(linha[1]);
-            int maxVagoes = Integer.parseInt(linha[2]);
-            Locomotiva locomotiva = new Locomotiva(idL, maxPeso, maxVagoes);
-            gc.addCarro(locomotiva);
-        }
+            for (String[] linha : matrizL) {
+                if (linha == matrizL[0]) continue; // Pula a primeira linha do arquivo
+                int idL = 0;
+                double maxPeso = 0.0;
+                int maxVagoes = 0;
+                try {
+                    idL = Integer.parseInt(linha[0]);
+                    maxPeso = Double.parseDouble(linha[1]);
+                    maxVagoes = Integer.parseInt(linha[2]);
+                } catch (Exception e) {
+                    System.out.println("Erro encontrado durante a leitura dos arquivos!! \nError: Entrada inválida no arquivo locomotiva.csv");
+                    System.exit(0);
+                }
+                Locomotiva locomotiva = new Locomotiva(idL, maxPeso, maxVagoes);
+                gc.addCarro(locomotiva);
+            }
 
-        for (String[] linha : matrizV) {
-            if (linha == matrizV[0]) continue; // Pula a primeira linha do arquivo
-            int idV = Integer.parseInt(linha[0]);
-            double capacidade = Double.parseDouble(linha[1]);
-            Vagao vagao = new Vagao(idV, capacidade);
-            gc.addCarro(vagao);
-        }
+            for (String[] linha : matrizV) {
+                if (linha == matrizV[0]) continue; // Pula a primeira linha do arquivo
+                int idV = 0;
+                double capacidade = 0.0; 
+                try {
+                    idV = Integer.parseInt(linha[0]);
+                    capacidade = Double.parseDouble(linha[1]); 
+                } catch (Exception e) {
+                    System.out.println("Erro encontrado durante a leitura dos arquivos!! \nError: Entrada inválida no arquivo vagao.csv");
+                    System.exit(0);
+                }
+                Vagao vagao = new Vagao(idV, capacidade);
+                gc.addCarro(vagao);
+            }
 
-        for (String[] linha : matrizC) {
-            if (linha == matrizC[0]) continue; // Pula a primeira linha do arquivo
-            int compId = Integer.parseInt(linha[0]); // ID do trem
-            int locomotivaId = Integer.parseInt(linha[1]); // ID da locomotiva
-            for (Carro c : gc.garagemCarro) {
-                if (c.getId() == locomotivaId) {
-                    Trem t = new Trem(compId, (Locomotiva) c, gc);
-                    patio.addTrem(t);
-                    break;
+            for (String[] linha : matrizC) {
+                if (linha == matrizC[0]) continue; // Pula a primeira linha do arquivo
+                int compId = 0; // ID do trem
+                int locomotivaId = 0; // ID da locomotiva
+                try {
+                    compId = Integer.parseInt(linha[0]); // ID do trem
+                    locomotivaId = Integer.parseInt(linha[1]); // ID da locomotiva
+                } catch (Exception e) {
+                    System.out.println("Erro encontrado durante a leitura dos arquivos!! \nError: Entrada inválida no arquivo composicao.csv");
+                    System.exit(0);
+                }
+                if(gc.verificaIdCarro(locomotivaId) == false){
+                    System.out.println("Erro encontrado durante a leitura dos arquivos!! \nError: Entrada no campo 'locomotiva' inválida no arquivo composicao.csv");
+                    System.exit(0);
+                }
+                if(patio.verificaIdTrem(compId) == true){
+                    System.out.println("Erro encontrado durante a leitura dos arquivos!! \nError: Entrada no campo 'id' inválida no arquivo composicao.csv");
+                    System.exit(0);
+                }
+                for (Carro c : gc.garagemCarro) {
+                    if (c.getId() == locomotivaId) {
+                        Trem t = new Trem(compId, (Locomotiva) c, gc);
+                        patio.addTrem(t);
+                        break;
+                    }
                 }
             }
+        } catch (Exception e) {
+            System.out.println("Erro encontrado durante a leitura dos arquivos!! \nError: " + e.getMessage());
+            System.exit(0);
         }
     }
 
@@ -69,7 +104,7 @@ public class App {
             if(escolhaMenu == 1){
                 System.out.println("Qual o identificador do trem? ");
                 tremId = scanner.nextInt();
-                while(Patio.verificaIdTrem(tremId) == true){
+                while(patio.verificaIdTrem(tremId) == true){
                     System.out.println("Já existe um trem com esse identificador. Digite novamente: ");
                     tremId = scanner.nextInt();
                 }
@@ -80,7 +115,7 @@ public class App {
                     id = scanner.nextInt();
                 }
                 Locomotiva locoadd = (Locomotiva) gc.getCarro(id);
-                Patio.criaTrem(tremId,locoadd,gc);
+                patio.criaTrem(tremId,locoadd,gc);
                 System.out.println("Trem criado com sucesso! =)");
             }
             if(escolhaMenu == 2){
@@ -102,7 +137,7 @@ public class App {
                     if(escolhaMenu == 1){
                         System.out.println("Qual o identificador do trem em que deseja adicionar? ");
                         tremId = scanner.nextInt();
-                        while(Patio.verificaIdTrem(tremId) == false){
+                        while(patio.verificaIdTrem(tremId) == false){
                             System.out.println("Não existe um trem com esse identificador. Digite novamente: ");
                             tremId = scanner.nextInt();
                         }
@@ -113,7 +148,7 @@ public class App {
                             id = scanner.nextInt();
                         }
                         Locomotiva locoadd = (Locomotiva) gc.getCarro(id);
-                        Trem tremadd = Patio.getTrem(tremId);
+                        Trem tremadd = patio.getTrem(tremId);
                         boolean engatado = tremadd.engataCarro(locoadd,gc);
                         if(engatado == true) {
                             System.out.println("Locomotiva adicionada com sucesso! =)");
@@ -125,7 +160,7 @@ public class App {
                     if(escolhaMenu == 2){
                         System.out.println("Qual o identificador do trem em que deseja adicionar? ");
                         tremId = scanner.nextInt();
-                        while(Patio.verificaIdTrem(tremId) == false){
+                        while(patio.verificaIdTrem(tremId) == false){
                             System.out.println("Não existe um trem com esse identificador. Digite novamente: ");
                             tremId = scanner.nextInt();
                         }
@@ -136,7 +171,7 @@ public class App {
                             id = scanner.nextInt();
                         }
                         Vagao vagaoAdd = (Vagao) gc.getCarro(id);
-                        Trem tremadd = Patio.getTrem(tremId);
+                        Trem tremadd = patio.getTrem(tremId);
                         boolean engatado = tremadd.engataCarro(vagaoAdd, gc);
                         if(engatado == true) {
                             System.out.println("Vagão adicionado com sucesso! =)");
@@ -148,11 +183,11 @@ public class App {
                     if(escolhaMenu == 3){
                         System.out.println("Qual o identificador do trem que deseja editar? ");
                         tremId = scanner.nextInt();
-                        while(Patio.verificaIdTrem(tremId) == false){
+                        while(patio.verificaIdTrem(tremId) == false){
                             System.out.println("Não existe um trem com esse identificador. Digite novamente: ");
                             tremId = scanner.nextInt();
                         }
-                        Trem tremadd = Patio.getTrem(tremId);
+                        Trem tremadd = patio.getTrem(tremId);
                         if(tremadd.getQuantLocomotiva()<2){
                             System.out.println("Não é possível retirar o último elemento do trem. =(");
                         }
@@ -189,7 +224,7 @@ public class App {
             if (escolhaMenu == 4){
                 System.out.println("Qual o identificador do trem que será removido? ");
                 tremId = scanner.nextInt();
-                while(Patio.verificaIdTrem(tremId) == false){
+                while(patio.verificaIdTrem(tremId) == false){
                     System.out.println("Não existe um trem com esse identificador. Digite novamente: ");
                     tremId = scanner.nextInt();
                 }

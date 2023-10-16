@@ -2,9 +2,9 @@ package rocket;
 import java.io.*;
 import java.util.*;
 
-import javax.annotation.processing.SupportedOptions;
-
-// classe para formatar o arquivo .csv em uma matriz manipulavel
+/**
+ * Transforma o arquivo .csv em uma matriz manipulavel
+ */
 public class Leitor{
 
     private List<String[]> listaLinhas = new ArrayList<String[]>();
@@ -12,7 +12,10 @@ public class Leitor{
     private String[][] matrizString;
     private int tamLinha, tamColuna;
 
-    // acessar o arquivo .csv e construir uma matriz
+    /**
+     * Acessa o arquivo .csv e constrói uma matriz
+     * @param str
+     */
     public Leitor(String str){
         if(str.equals("C")){
             try(BufferedReader data = new BufferedReader(new FileReader("composicao.csv"))){
@@ -20,6 +23,10 @@ public class Leitor{
                     String[] itensLinha = linha.split(",");
                     listaLinhas.add(itensLinha);
                     tamColuna = itensLinha.length;
+                    if(tamColuna!=2){
+                        System.out.println("Erro encontrado durante a leitura dos arquivos!! \nError: Número de colunas inválido no arquivo composicao.csv");
+                        System.exit(0);
+                    }
                     tamLinha++;
                 }
                 data.close();
@@ -33,6 +40,10 @@ public class Leitor{
                     String[] itensLinha = linha.split(",");
                     listaLinhas.add(itensLinha);
                     tamColuna = itensLinha.length;
+                    if(tamColuna != 3) {
+                        System.out.println("Erro encontrado durante a leitura dos arquivos!! \nError: Número de colunas inválido no arquivo locomotiva.csv");
+                        System.exit(0);
+                    }
                     tamLinha++;
                 }
                 data.close();
@@ -46,6 +57,10 @@ public class Leitor{
                     String[] itensLinha = linha.split(",");
                     listaLinhas.add(itensLinha);
                     tamColuna = itensLinha.length;
+                    if(tamColuna != 2){
+                        System.out.println("Erro encontrado durante a leitura dos arquivos!! \nError: Número de colunas inválido no arquivo vagao.csv");
+                        System.exit(0);
+                    }
                     tamLinha++;
                 }
                 data.close();
@@ -61,6 +76,9 @@ public class Leitor{
                 matrizString[i][j] = listaLinhas.get(i)[j];
             }
         }
+    }
+    public int getTamColuna(){
+        return tamColuna;
     }
 
     public String[][] getMatriz(){

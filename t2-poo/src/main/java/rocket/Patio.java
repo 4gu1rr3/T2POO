@@ -2,9 +2,9 @@ package rocket;
 
 import java.util.*;
 public class Patio {
-    public static ArrayList<Trem> trens = new ArrayList<Trem>();
+    public ArrayList<Trem> trens = new ArrayList<Trem>();
 
-    public static Trem criaTrem(int tremId, Locomotiva locom, GaragemCarros gc) {
+    public Trem criaTrem(int tremId, Locomotiva locom, GaragemCarros gc) {
         Trem t = new Trem(tremId, locom, gc);
         trens.add(t);
         return t;
@@ -26,11 +26,11 @@ public class Patio {
         }
     }
 
-    public static boolean hasTrem(Trem t){
+    public boolean hasTrem(Trem t){
         return trens.contains(t);
     }
 
-    public static Trem getTrem(int idTrem) {
+    public Trem getTrem(int idTrem) {
         for (Trem t : trens) {
             if (t.getId() == idTrem) {
                 return t;
@@ -39,7 +39,7 @@ public class Patio {
         return null;
     }
 
-    public static boolean verificaIdTrem(int id){
+    public boolean verificaIdTrem(int id){
         for(Trem t: trens){
             if (t.getId() == id){
                 return true;
