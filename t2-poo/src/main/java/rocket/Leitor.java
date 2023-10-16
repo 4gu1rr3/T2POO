@@ -2,6 +2,8 @@ package rocket;
 import java.io.*;
 import java.util.*;
 
+import javax.annotation.processing.SupportedOptions;
+
 // classe para formatar o arquivo .csv em uma matriz manipulavel
 public class Leitor{
 
@@ -13,12 +15,12 @@ public class Leitor{
     // acessar o arquivo .csv e construir uma matriz
     public Leitor(String str){
         if(str.equals("C")){
-            try(BufferedReader data = new BufferedReader(new FileReader("t2-poo\\composicao.csv"))){
+            try(BufferedReader data = new BufferedReader(new FileReader("composicao.csv"))){
                 while((linha = data.readLine()) != null){
                     String[] itensLinha = linha.split(",");
                     listaLinhas.add(itensLinha);
-                    tamLinha = itensLinha.length;
-                    tamColuna++;
+                    tamColuna = itensLinha.length;
+                    tamLinha++;
                 }
                 data.close();
             }catch(Exception e){
@@ -26,12 +28,12 @@ public class Leitor{
             }
 
         }else if(str.equals("L")){
-            try(BufferedReader data = new BufferedReader(new FileReader("t2-poo\\locomotiva.csv"))){
+            try(BufferedReader data = new BufferedReader(new FileReader("locomotiva.csv"))){
                 while((linha = data.readLine()) != null){
                     String[] itensLinha = linha.split(",");
                     listaLinhas.add(itensLinha);
-                    tamLinha = itensLinha.length;
-                    tamColuna++;
+                    tamColuna = itensLinha.length;
+                    tamLinha++;
                 }
                 data.close();
             }catch(Exception e){
@@ -39,12 +41,12 @@ public class Leitor{
             }
 
         }else if(str.equals("V")){
-            try(BufferedReader data = new BufferedReader(new FileReader("t2-poo\\vagoes.csv"))){
+            try(BufferedReader data = new BufferedReader(new FileReader("vagoes.csv"))){
                 while((linha = data.readLine()) != null){
                     String[] itensLinha = linha.split(",");
                     listaLinhas.add(itensLinha);
-                    tamLinha = itensLinha.length;
-                    tamColuna++;
+                    tamColuna = itensLinha.length;
+                    tamLinha++;
                 }
                 data.close();
             }catch(Exception e){
@@ -52,8 +54,10 @@ public class Leitor{
             }
         }
 
+        matrizString = new String[tamLinha][tamColuna];
+
         for(int i = 0; i < tamLinha; i++){
-            for(int j = 0; j < tamColuna-1; j++){
+            for(int j = 0; j < tamColuna; j++){
                 matrizString[i][j] = listaLinhas.get(i)[j];
             }
         }

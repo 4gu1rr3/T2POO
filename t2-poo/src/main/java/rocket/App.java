@@ -19,6 +19,36 @@ public class App {
         int escolhaMenu = -1;
         int tremId, id;
 
+        for (String[] linha : matrizL) {
+            if (linha == matrizL[0]) continue; // Pula a primeira linha do arquivo
+            int idL = Integer.parseInt(linha[0]);
+            double maxPeso = Double.parseDouble(linha[1]);
+            int maxVagoes = Integer.parseInt(linha[2]);
+            Locomotiva locomotiva = new Locomotiva(idL, maxPeso, maxVagoes);
+            gc.addCarro(locomotiva);
+        }
+
+        for (String[] linha : matrizV) {
+            if (linha == matrizV[0]) continue; // Pula a primeira linha do arquivo
+            int idV = Integer.parseInt(linha[0]);
+            double capacidade = Double.parseDouble(linha[1]);
+            Vagao vagao = new Vagao(idV, capacidade);
+            gc.addCarro(vagao);
+        }
+
+        for (String[] linha : matrizC) {
+            if (linha == matrizC[0]) continue; // Pula a primeira linha do arquivo
+            int compId = Integer.parseInt(linha[0]); // ID do trem
+            int locomotivaId = Integer.parseInt(linha[1]); // ID da locomotiva
+            for (Carro c : gc.garagemCarro) {
+                if (c.getId() == locomotivaId) {
+                    Trem t = new Trem(compId, (Locomotiva) c, gc);
+                    patio.addTrem(t);
+                    break;
+                }
+            }
+        }
+
         System.out.println("Bem-vindo ao sistema de trens =)");
 
         do{
@@ -148,7 +178,9 @@ public class App {
                 }while(escolhaMenu != 6);
             }
             if(escolhaMenu == 3){
-                System.out.println(patio.toString());
+                for(Trem t : patio.trens){
+                    System.out.println(t.toString());
+                }
                 System.out.println("6. Voltar");
                 scanner.next();
                 scanner.nextLine();

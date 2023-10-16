@@ -2,7 +2,7 @@ package rocket;
 
 import java.util.*;
 public class GaragemCarros {
-    private ArrayList<Carro> garagemCarro;
+    public ArrayList<Carro> garagemCarro;
     public GaragemCarros(){
         this.garagemCarro = new ArrayList<Carro>();
         garagemCarro.add(new Locomotiva(1, 2000, 10));

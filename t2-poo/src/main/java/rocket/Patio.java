@@ -2,12 +2,16 @@ package rocket;
 
 import java.util.*;
 public class Patio {
-    static ArrayList<Trem> trens = new ArrayList<Trem>();
+    public static ArrayList<Trem> trens = new ArrayList<Trem>();
 
-    public static Trem criaTrem(int tremId, Locomotiva locomotiva, GaragemCarros gc) {
-        Trem t = new Trem(tremId, locomotiva, gc);
+    public static Trem criaTrem(int tremId, Locomotiva locom, GaragemCarros gc) {
+        Trem t = new Trem(tremId, locom, gc);
         trens.add(t);
         return t;
+    }
+
+    public void addTrem(Trem t){
+        trens.add(t);
     }
 
     public void desfazTrem(int id, GaragemCarros gc){
@@ -22,8 +26,8 @@ public class Patio {
         }
     }
 
-    public static boolean hasTrem(Trem trem){
-        return trens.contains(trem);
+    public static boolean hasTrem(Trem t){
+        return trens.contains(t);
     }
 
     public static Trem getTrem(int idTrem) {
